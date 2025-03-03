@@ -6,11 +6,32 @@ import json
 from datetime import timedelta
 
 def register_user(data):
-    print(data['services_offered'])
+    print(f"Raw services_offered: {data['services_offered']}")
+
+    # Ensure password is hased
     hashed_pw = generate_password_hash(data['password']).decode('utf-8')
-    new_user = User(email=data['email'], password=hashed_pw, role=data['role'].upper(), industry=data['industry'],location=data['location'], services_offered=data['services_offered'])
+
+    # Conver services_offered to JSON if it's a string
+    services_offered = data['services_offered']
+    if isinstance(services_offered, str):
+        try:
+            services_offered = json.loads(services_offered) # Convert valid JSON string to a Python object
+        except json.JSONDecodeError:
+            services_offered = None # Default to None if parsing fails
+
+    # Create the user
+    new_user = User(
+        email=data['email'], 
+        password=hashed_pw, 
+        role=data['role'].upper(), 
+        industry=data['industry'],
+        location=data['location'], 
+        services_offered=services_offered
+    )
+
     db.session.add(new_user)
     db.session.commit()
+    
     return jsonify({'message': 'User registered successfully!'}), 201
 
 def login_user(data):
