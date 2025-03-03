@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    container_name: backend
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://myuser:mypassword@db:5432/seeker_provider_db
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    restart: always
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    restart: always
+  db:
+    image: postgresql:17
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_DB: seeker_provider_db
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "myuser", "-d", "seeker_provider_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local

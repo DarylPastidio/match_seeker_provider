@@ -1,0 +1,22 @@
+# Use Python image
+FROM python:3.9
+
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY . /app
+
+#Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+ENV FLASK_APP=run.py
+ENV FLASK_ENV=development
+ENV DATABASE_URL=postgresql://myuser:mypassword@db5432/seeker_provider_db
+
+# Expose Flask port
+EXPOSE 5000
+
+# Wait for database before starting the backend
+CMD [ "flask", "run", "--host", "0.0.0.0" ]

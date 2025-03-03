@@ -1,0 +1,29 @@
+# Use official Node.js image as a base
+FROM node:23 AS build
+
+#Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Copy the entire frontend source code
+COPY . .
+
+# Build the React application
+RUN npm  run build
+
+# Use Nginx to serve the built files
+FROM nginx:latest
+
+# Copy the built React app to Nginx
+COPY --from=build /app/dist /usr/share/nginx/html
+
+#Expose port 80
+EXPOSE 80
+
+#Start Nginx
+CMD [ "nginx", "-g", "daemon off;" ]
