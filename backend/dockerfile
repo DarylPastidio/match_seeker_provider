@@ -19,4 +19,4 @@ ENV DATABASE_URL=postgresql://myuser:mypassword@db:5432/seeker_provider_db
 EXPOSE 5000
 
 # Wait for database before starting the backend
-CMD ["sh", "-c", "./wait-for-it.sh db:5432 -- python setup_db.py && flask run --host=0.0.0.0"]
+CMD ["sh", "-c", "sleep 5 && python setup_db.py && flask run --host=0.0.0.0"]

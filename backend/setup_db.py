@@ -5,8 +5,6 @@ def run_command(command):
     process = subprocess.run(command, shell=True, check=True, text=True)
     return process
 
-os.chdir("backend")
-
 print("Initializing database...")
 run_command("flask db init || true")  # Avoid errors if already initialized
 
