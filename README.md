@@ -37,7 +37,7 @@ Ensure you have the following installed on your system:
 ### Clone the Repository
 ```sh
 git clone https://github.com/DarylPastidio/match_seeker_provider
-cd seeker-provider-matching
+cd match_seeker_provider
 ```
 
 ### Instructions for spinning up the app locally
@@ -58,7 +58,7 @@ DATABASE_URL= "postgresql://[username]:[password]@localhost:5432/seeker_provider
 4. Run database migrations:
    ```
    flask db init
-   flask db migreate -m "Initial Migration"
+   flask db migrate -m "Initial Migration"
    flask db upgrade
    ```
 5. Start the backend server:
