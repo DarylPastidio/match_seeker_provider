@@ -73,7 +73,7 @@ DATABASE_URL= "postgresql://[username]:[password]@localhost:5432/seeker_provider
    ```
 2. Install dependencies:
    ```sh
-   npm install
+   npm install --legacy-peer-deps
    ```
 3. Start the React app:
    ```sh
