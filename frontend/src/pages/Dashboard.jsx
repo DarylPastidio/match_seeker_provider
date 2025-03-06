@@ -61,7 +61,7 @@ const Dashboard = () => {
                         Services
                       </label>
                       <div className="flex flex-wrap">
-                        {JSON.parse(match.services_offered)?.map(
+                        {match.services_offered?.map(
                           (item, index) =>
                             !!item.value && (
                               <div
