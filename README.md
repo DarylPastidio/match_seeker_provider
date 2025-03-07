@@ -89,9 +89,9 @@ This will start the backend, frontend, and PostgreSQL database.
 
 ### Caution: If you are going to deploy, please follow these steps.
 
-1. Find and open the defaultsettingAxios.jsx:
+1. Find and open the .env file:
    ```sh
-   frontend\src\api\defaultsettingAxios.jsx
+   frontend\.env
    ```
 2. Change the following in the file:
 
