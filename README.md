@@ -87,13 +87,31 @@ sudo docker-compose up --build
 ```
 This will start the backend, frontend, and PostgreSQL database.
 
+### Caution: If you are going to deploy, please follow these steps.
+
+1. Find and open the defaultsettingAxios.jsx:
+   ```sh
+   frontend\src\api\defaultsettingAxios.jsx
+   ```
+2. Change the following in the file:
+
+   * This is the original file.
+   ```sh
+   axios.defaults.baseURL = "http://127.0.0.1:5000/";
+   ```
+   * Change the file with the IP.
+   ```sh
+   axios.defaults.baseURL = "http://146.19.207.28:5000/";
+   ```
+   Here 146.19.207.28 is changable IP address which you want.
+
 ## API Endpoints
 | Method | Endpoint              | Description                      |
-|--------|----------------------|----------------------------------|
-| POST   | `/auth/register`      | Register a new user             |
-| POST   | `/auth/login`         | Authenticate user & return token|
-| GET    | `/profile/profile`      | Get user profile details        |
-| PUT    | `/profile/profile`      | Update user profile             |
+|--------|-----------------------|----------------------------------|
+| POST   | `/auth/register`      | Register a new user              |
+| POST   | `/auth/login`         | Authenticate user & return token |
+| GET    | `/profile/profile`    | Get user profile details         |
+| PUT    | `/profile/profile`    | Update user profile              | 
 | GET    | `/matches`            | Get matched providers for seeker |
 
 ## Sample Profile Data
